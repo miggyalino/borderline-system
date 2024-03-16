@@ -26,7 +26,7 @@ export const StickyScroll = ({
   const cardLength = content.length;
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const cardsBreakpoints = content.map((_, index) => (index / cardLength) * 0.8);
+    const cardsBreakpoints = content.map((_, index) => (index / (cardLength)));
     const closestBreakpointIndex = cardsBreakpoints.reduce(
       (acc, breakpoint, index) => {
         const distance = Math.abs(latest - breakpoint);
@@ -41,7 +41,7 @@ export const StickyScroll = ({
   });
 
   const backgroundColors = [
-    "var(--red-400)",
+    // "var(--gray-400)",
     "var(--red-900)",
   ];
   const linearGradients = [
@@ -52,7 +52,7 @@ export const StickyScroll = ({
       animate={{
         backgroundColor: backgroundColors[activeCard % backgroundColors.length],
       }}
-      className="h-[30rem] overflow-y-auto flex justify-around relative space-x-10 rounded-md p-10 hide-scrollbar"
+      className="h-[60vh] overflow-y-auto flex justify-around relative space-x-10 rounded-md p-10 hide-scrollbar"
       ref={ref}
     >
         <motion.div
@@ -60,7 +60,7 @@ export const StickyScroll = ({
             background: linearGradients[activeCard % linearGradients.length],
             }}
             className={cn(
-            "hidden lg:block h-60 w-80 rounded-md bg-white sticky top-10 overflow-hidden",
+            "hidden lg:block h-60 w-80 rounded-md bg-white sticky top-16 overflow-hidden",
             contentClassName
             )}
             >
@@ -69,7 +69,7 @@ export const StickyScroll = ({
       <div className="div relative flex items-start px-4 padding-container">
         <div className="max-w-2xl">
           {content.map((item, index) => (
-            <div key={item.title + index} className="my-20">
+            <div key={item.title + index} className="pt-40 pb-20">
               <motion.h2
                 initial={{
                   opacity: 0,

@@ -8,7 +8,7 @@ const content = [
     description:
       "Begin by exploring our diverse range of destinations and tour packages. Navigate through our user-friendly website to discover exotic locales, thrilling adventures, and cultural experiences that pique your interest.",
     content: (
-      <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] flex items-center justify-center text-white">
+      <div className="h-full w-full flex items-center justify-center text-white">
         Collaborative Editing
       </div>
     ),
@@ -34,7 +34,7 @@ const content = [
     description:
       "Have questions or need assistance? Reach out to our team of experienced travel experts for personalized guidance and recommendations. Whether it's destination insights, itinerary adjustments, or travel tips, we're here to help every step of the way.",
     content: (
-      <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] flex items-center justify-center text-white">
+      <div className="h-full w-full flex items-center justify-center text-white">
         Version control
       </div>
     ),
@@ -44,7 +44,7 @@ const content = [
     description:
       "Ready to book your dream getaway? With our easy-to-use booking platform, securing your travel plans is quick and convenient. Simply follow the prompts to reserve your spot, make secure payments, and receive instant confirmation—all with peace of mind.",
     content: (
-      <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] flex items-center justify-center text-white">
+      <div className="h-full w-full flex items-center justify-center text-white">
         Running out of content
       </div>
     ),
@@ -53,7 +53,7 @@ const content = [
 
 const HowTo = () => {
   return (
-    <div className=''>
+    <div className='pt-20 bg-red-900'>
       <StickyScroll content={content} />
     </div>
   )

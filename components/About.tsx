@@ -4,7 +4,7 @@ import { GlobeDemo } from './ui/GlobeDemo'
 
 const About = () => {
   return (
-    <section className='max-container padding-container flex py-24'>
+    <section className='max-container padding-container h-[100vh] flex py-2 '>
       {/* Left Side */}
       <div className='flex gap-4 flex-col w-5/12 justify-center'>
         <h2 className='font-bold text-4xl'>Connecting People Across Borders</h2>

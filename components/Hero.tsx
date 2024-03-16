@@ -13,7 +13,7 @@ const Hero = () => {
             <div className='flex flex-col w-1/2 justify-center h-screen gap-4 z-30'>
 
                 <h2 className='text-2xl text-white font-bold'>
-                    Discover. Explore. Wander
+                    Discover. Explore. Wander.
                 </h2>
                 <h1 className='flex text-white text-4xl font-bold items-center'>
                     <TypewriterEffectSmooth words={HERO_WORDS} />

@@ -12,16 +12,16 @@ export function GlobeDemo() {
     pointSize: 4,
     globeColor: "#301012",
     showAtmosphere: true,
-    atmosphereColor: "#FFFFFF",
+    atmosphereColor: "#f9fafb",
     atmosphereAltitude: 0.1,
     emissive: "#062056",
     emissiveIntensity: 0.1,
     shininess: 0.9,
     polygonColor: "rgba(255,255,255,1.5)",
-    ambientLight: "#38bdf8",
-    directionalLeftLight: "#ffffff",
-    directionalTopLight: "#ffffff",
-    pointLight: "#ffffff",
+    ambientLight: "#f9fafb",
+    directionalLeftLight: "#f9fafb",
+    directionalTopLight: "#f9fafb",
+    pointLight: "#f9fafb",
     arcTime: 1000,
     arcLength: 0.9,
     rings: 1,
@@ -395,7 +395,7 @@ export function GlobeDemo() {
   ];
 
   return (
-    <div className="flex flex-row items-center justify-center py-20 h-screen md:h-auto dark:bg-black bg-white relative w-full">
+    <div className="flex flex-row items-center justify-center py-20 h-screen md:h-auto bg-gray-100 w-full">
       <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[40rem] px-4">
         <motion.div
           initial={{
