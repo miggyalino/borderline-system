@@ -60,7 +60,7 @@ export const StickyScroll = ({
             background: linearGradients[activeCard % linearGradients.length],
             }}
             className={cn(
-            "hidden lg:block h-60 w-80 rounded-md bg-white sticky top-16 overflow-hidden",
+            "hidden lg:block h-80 w-80 bg-white rounded-full sticky top-16 overflow-hidden",
             contentClassName
             )}
             >

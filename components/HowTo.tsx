@@ -9,7 +9,13 @@ const content = [
       "Begin by exploring our diverse range of destinations and tour packages. Navigate through our user-friendly website to discover exotic locales, thrilling adventures, and cultural experiences that pique your interest.",
     content: (
       <div className="h-full w-full flex items-center justify-center text-white">
-        Collaborative Editing
+        <Image
+          src="/HowTo/HowToPicture1.png"
+          alt='How to picture 1'
+          width={400}
+          height={400}
+          className='rounded-full'
+        />
       </div>
     ),
   },
@@ -20,11 +26,11 @@ const content = [
     content: (
       <div className="h-full w-full  flex items-center justify-center text-white">
         <Image
-          src="/linear.webp"
-          width={300}
-          height={300}
-          className="h-full w-full object-cover"
-          alt="linear board demo"
+          src="/HowTo/HowToPicture2.png"
+          alt='How to picture 2'
+          width={400}
+          height={400}
+          className='rounded-full'
         />
       </div>
     ),
@@ -35,7 +41,13 @@ const content = [
       "Have questions or need assistance? Reach out to our team of experienced travel experts for personalized guidance and recommendations. Whether it's destination insights, itinerary adjustments, or travel tips, we're here to help every step of the way.",
     content: (
       <div className="h-full w-full flex items-center justify-center text-white">
-        Version control
+        <Image
+          src="/HowTo/HowToPicture3.png"
+          alt='How to picture 3'
+          width={400}
+          height={400}
+          className='rounded-full'
+        />
       </div>
     ),
   },
@@ -45,7 +57,13 @@ const content = [
       "Ready to book your dream getaway? With our easy-to-use booking platform, securing your travel plans is quick and convenient. Simply follow the prompts to reserve your spot, make secure payments, and receive instant confirmation—all with peace of mind.",
     content: (
       <div className="h-full w-full flex items-center justify-center text-white">
-        Running out of content
+        <Image
+          src="/HowTo/HowToPicture4.png"
+          alt='How to picture 4'
+          width={400}
+          height={400}
+          className='rounded-full'
+        />
       </div>
     ),
   },
