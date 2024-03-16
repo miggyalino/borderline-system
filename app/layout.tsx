@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Poppins } from 'next/font/google';
 import { Lexend } from 'next/font/google';
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const poppins = Poppins({
   display: 'swap',
@@ -29,7 +31,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className=''>{children}</body>
+      <body className=''>
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
