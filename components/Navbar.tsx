@@ -36,7 +36,7 @@ const Navbar = async () => {
         <div className='flex gap-8 items-center'>
           
           <div className='flex gap-6 flexCenter'>
-              <Button variant='destructive'>
+            <Button variant='destructive'>
                 Book Now
               </Button>
             {
@@ -44,15 +44,15 @@ const Navbar = async () => {
                 <UserButton afterSignOutUrl='/' />
               ) : (
                 <div className='flexCenter gap-6'>
-                  <Button variant='destructive'>
+                  <Button className='btn-secondary' variant='destructive'>
                     <SignInButton />
                   </Button>
-                  <Button variant='destructive'>
+                  <Button className='btn-secondary' variant='destructive'>
                     <SignUpButton />
                   </Button>
                 </div>
               )}
-
+              
           </div>
         </div>
 

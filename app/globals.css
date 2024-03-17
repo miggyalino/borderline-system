@@ -21,6 +21,9 @@ body {
     filter: brightness(.5);
   }
   
+  .btn-secondary {
+    @apply text-red-500 bg-gray-100 hover:bg-red-500 hover:text-white;
+  }
 
   .max-container {
     @apply mx-auto max-w-[1440px];
