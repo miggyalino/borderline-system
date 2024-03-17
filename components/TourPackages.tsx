@@ -27,15 +27,6 @@ const TourPackages = () => {
           <ParallaxScroll images={TOUR_IMAGES}/>
           </div>
         
-        {/* <div className='flex flex-wrap gap-8'>
-          {TOUR_PACKAGES.map((tour) => (
-            <DirectionAwareHover imageUrl={tour.image}>
-            <p className="font-bold text-xl">{tour.title}</p>
-            <p className="font-normal text-sm">{tour.price}</p>
-          </DirectionAwareHover>
-          ))}
-        </div> */}
-        
         
       </div>
       
