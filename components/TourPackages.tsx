@@ -14,7 +14,7 @@ const TourPackages = () => {
 
         <div className='flex flex-col justify-center gap-4'>
           <h2 className='text-4xl font-bold '>Our Tour Packages</h2>
-          <p className='font-medium max-w-xl'>Embark on unforgettable journeys tailored just for you with our curated tour packages. Explore breathtaking landscapes, immerse yourself in vibrant cultures, and create lifelong memories with our expertly crafted itineraries.</p>
+          <p className='font-medium max-w-xl'>Embark on unforgettable journeys tailored just for you and your group with our curated tour packages. Explore breathtaking landscapes, immerse yourself in vibrant cultures, and create lifelong memories with our expertly crafted itineraries.</p>
           <div className='flex gap-4'>
             <Button variant='destructive'>
               Learn More
