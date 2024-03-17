@@ -1,20 +1,26 @@
 import { NAVBAR_LINKS } from '@/constants'
+import { SignInButton, SignUpButton, UserButton, auth, currentUser} from "@clerk/nextjs";
 import Link from 'next/link'
 import React from 'react'
 import { Button } from './ui/button'
 import Image from 'next/image'
 
-const Navbar = () => {
+const Navbar = async () => {
+
+  const { userId } = auth()
+  const user = await currentUser()
+
   return (
     <nav className='bg-gray-100'>
       <div className='max-container padding-container py-4 flex flexBetween'>
-        <Image 
-          src='/BorderlineLogo.png'
-          alt='Borderline Travel and Tours'
-          width={120}
-          height={50}
-        />
-        <div className='flex gap-8 items-center'>
+
+        <div className='flex flexCenter gap-8'>
+          <Image 
+            src='/BorderlineLogo.png'
+            alt='Borderline Travel and Tours'
+            width={120}
+            height={50}
+          />
           <div className='flex gap-10'>
             {NAVBAR_LINKS.map((link) => (
               <Link
@@ -25,15 +31,31 @@ const Navbar = () => {
               </Link>
             ))}
           </div>
-          <div className='flex gap-4'>
-            <Button variant='destructive'>
-              Book Now
-            </Button>
-            <Button variant='destructive'>
-              Sign In
-            </Button>
+        </div>
+       
+        <div className='flex gap-8 items-center'>
+          
+          <div className='flex gap-6 flexCenter'>
+              <Button variant='destructive'>
+                Book Now
+              </Button>
+            {
+              userId || user ? (
+                <UserButton afterSignOutUrl='/' />
+              ) : (
+                <div className='flexCenter gap-6'>
+                  <Button variant='destructive'>
+                    <SignInButton />
+                  </Button>
+                  <Button variant='destructive'>
+                    <SignUpButton />
+                  </Button>
+                </div>
+              )}
+
           </div>
         </div>
+
       </div>
     </nav>
     

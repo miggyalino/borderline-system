@@ -19,9 +19,6 @@ const TourPackages = () => {
             <Button variant='destructive'>
               Learn More
             </Button>
-            <Button variant='destructive'>
-              Sign Up
-            </Button>
           </div>
 
           

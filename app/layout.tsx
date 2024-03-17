@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { ClerkProvider } from '@clerk/nextjs'
 import { Poppins } from 'next/font/google';
 import { Lexend } from 'next/font/google';
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import FooterNav from "@/components/FooterNav";
 
 const poppins = Poppins({
   display: 'swap',
@@ -30,12 +31,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className=''>
-        <Navbar />
-        {children}
-        <Footer />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className=''>
+          <Navbar />
+          {children}
+          <FooterNav />
+        </body>
+      </html>
+    </ClerkProvider>
+    
   );
 }
