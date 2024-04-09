@@ -4,7 +4,6 @@ import { Poppins } from 'next/font/google';
 import { Lexend } from 'next/font/google';
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import FooterNav from "@/components/FooterNav";
 
 const poppins = Poppins({
   display: 'swap',
@@ -36,7 +35,6 @@ export default function RootLayout({
         <body className=''>
           <Navbar />
           {children}
-          <FooterNav />
         </body>
       </html>
     </ClerkProvider>

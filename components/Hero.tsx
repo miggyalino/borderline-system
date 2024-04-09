@@ -2,15 +2,15 @@ import React from 'react'
 import { Button } from './ui/button'
 import { TypewriterEffect, TypewriterEffectSmooth } from './ui/TypewriterEffect'
 import { COUNTER_CARDS, HERO_WORDS } from '@/constants'
-import Counter from './Counter'
 
 const Hero = () => {
   return (
-    <div className='relative'>
-        <div className='absolute inset-0 bg-bg-img-1 z-10' />
+    <div className='relative bg-black'>
         {/* Left Side Section */}
         <section className='padding-container max-container flexBetween z-30'>
-            <div className='flex flex-col w-1/2 justify-center h-screen gap-4 z-30'>
+
+            <div className='absolute inset-0 h-[500px] z-10' />
+            <div className='flex flex-col justify-center h-[500px] gap-4 z-30'>
 
                 <h2 className='text-2xl text-white font-bold'>
                     Discover. Explore. Wander.
@@ -27,18 +27,9 @@ const Hero = () => {
                 </div>
 
             </div>
-
-            {/* Right Side Section */}
-            <div className='w-1/2 '>
-
-            </div>
-
+        
         </section>
 
-        {/* Counter Section */}
-        <div className='padding-container max-container absolute bottom-20 left-80 z-30'>
-            <Counter />
-        </div>
     </div>
   )
 }
