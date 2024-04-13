@@ -1,37 +1,44 @@
-import React from 'react'
-import { Button } from './ui/button'
-import { TypewriterEffect, TypewriterEffectSmooth } from './ui/TypewriterEffect'
-import { COUNTER_CARDS, HERO_WORDS } from '@/constants'
+"use client";
+import { motion } from "framer-motion";
+import React from "react";
+
+import { Button } from "./ui/button";
+import {
+  TypewriterEffect,
+  TypewriterEffectSmooth,
+} from "./ui/TypewriterEffect";
+import { HERO_WORDS, IMAGES } from "@/constants";
+import { ImagesSlider } from "./ui/images-slider";
 
 const Hero = () => {
   return (
-    <div className='relative bg-black'>
-        {/* Left Side Section */}
-        <section className='padding-container max-container flexBetween z-30'>
+    <ImagesSlider className="h-[40rem]" images={IMAGES}>
+      <motion.div
+        initial={{
+          opacity: 0,
+          y: -80,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 0.6,
+        }}
+        className="z-50 flex flex-col justify-center items-center"
+      >
+        <motion.p className="text-center bg-clip-text">
+          <h1 className="flex items-center text-white text-8xl font-bold">
+            <TypewriterEffectSmooth words={HERO_WORDS} />
+          </h1>
+        </motion.p>
+        <p className="text-white/50 text-xl l">
+          We don't just plan trips. We craft experiences that linger in your
+          memories forever.
+        </p>
+      </motion.div>
+    </ImagesSlider>
+  );
+};
 
-            <div className='absolute inset-0 h-[500px] z-10' />
-            <div className='flex flex-col justify-center h-[500px] gap-4 z-30'>
-
-                <h2 className='text-2xl text-white font-bold'>
-                    Discover. Explore. Wander.
-                </h2>
-                <h1 className='flex text-white text-4xl font-bold items-center'>
-                    <TypewriterEffectSmooth words={HERO_WORDS} />
-                </h1>
-                <p className='text-gray-300'>
-                    At Borderline Travel and Tours, we don't just plan trips; we craft experiences that linger in your memories forever. From pristine beaches to bustling cities, immerse yourself in the beauty of diverse cultures and breathtaking landscapes.
-                </p>
-                <div className='flex gap-4'>
-                    <Button variant='destructive'>Book Now</Button>
-                    <Button variant='destructive'>Sign Up</Button>
-                </div>
-
-            </div>
-        
-        </section>
-
-    </div>
-  )
-}
-
-export default Hero
+export default Hero;
