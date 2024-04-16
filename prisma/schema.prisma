@@ -40,6 +40,9 @@ model Booking {
   destination   String?
   travelStartDate DateTime?
   travelEndDate DateTime?
+  // For admin
+  generatedQuotation Boolean @default(false)
+  status       String @default("pending")
 }
 
 model Service {
