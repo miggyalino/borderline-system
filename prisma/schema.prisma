@@ -28,9 +28,13 @@ model Booking {
   userId         String
   service        Service        @relation(fields: [serviceId], references: [serviceId])
   serviceId      String         
-  bookingDate    DateTime
+  bookingDate    DateTime       @default(now())
+  contactPersonName String
+  contactPersonNumber String
+  contactPersonEmail String
   bookingMembers BookingMember[]
   type           String
+  quotation      String?
 }
 
 model Service {
@@ -50,6 +54,7 @@ model BookingMember {
   firstName      String
   middleName     String?
   contactNumber  String
+  email          String
   BookingMemberRequirements BookingMemberRequirements[]
 }
 
@@ -73,6 +78,23 @@ model Tour {
   tourInclusions  String
   tourExclusions  String
   tourContinent   String       // Assuming a tour can belong to only one continent; adjust as needed
-  isFeatured      Boolean    
+  isFeatured      Boolean
+  tourDays        TourDay[]    
+}
+
+model TourDay {
+  tourDayId       Int          @id @default(autoincrement())
+  tour            Tour         @relation(fields: [tourId], references: [tourId])
+  tourId          Int
+  dayNumber       Int
+  dayDescription  String
+  dayItinerary    DayItinerary[]
+}
+
+model DayItinerary {
+  dayItineraryId  Int          @id @default(autoincrement())
+  tourDay         TourDay      @relation(fields: [tourDayId], references: [tourDayId])
+  tourDayId       Int
+  itinerary       String
 }
 
