@@ -1,0 +1,106 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Define the User model
+model User {
+  userId   String    @id
+  password String
+  bookings Booking[]
+}
+
+model Booking {
+  bookingId      String          @id
+  user           User            @relation(fields: [userId], references: [userId])
+  userId         String
+  service        Service         @relation(fields: [serviceId], references: [serviceId])
+  serviceId      Int
+  bookingDate    DateTime
+  bookingMembers BookingMember[]
+  Tour           Tour?           @relation(fields: [tourTourId], references: [tourId])
+  tourTourId     Int?
+}
+
+// Define the Service model
+model Service {
+  serviceId    Int           @id @default(autoincrement())
+  name         String
+  description  String
+  bookings     Booking[]
+  requirements Requirement[]
+}
+
+// Define the Requirement model
+model Requirement {
+  requirementId   Int          @id @default(autoincrement())
+  documentName    String
+  fileSubmissions Submission[] // Represents the file submissions associated with this requirement
+  services        Service[] // Represents the services associated with this requirement
+}
+
+// Define the FileSubmission model to represent file submissions for requirements
+model Submission {
+  submissionId    Int           @id @default(autoincrement())
+  bookingMember   BookingMember @relation(fields: [bookingMemberId], references: [memberId])
+  bookingMemberId Int
+  requirement     Requirement   @relation(fields: [requirementId], references: [requirementId])
+  requirementId   Int
+  fileName        String
+  filePath        String
+}
+
+// Define the BookingMember model
+model BookingMember {
+  memberId      Int          @id @default(autoincrement())
+  booking       Booking      @relation(fields: [bookingId], references: [bookingId])
+  bookingId     String
+  lastName      String
+  firstName     String
+  middleName    String?
+  contactNumber String
+  Submission    Submission[]
+  TourMember    TourMember[]
+}
+
+// Define the Tour model
+model Tour {
+  tourId         Int          @id @default(autoincrement())
+  tourName       String
+  tourDates      String // You can use a specific type for dates based on your needs (e.g., DateTime)
+  tourItinerary  String
+  tourInclusions String
+  tourExclusions String
+  tourContinent  String // Assuming a tour can belong to only one continent; adjust as needed
+  isFeatured     Boolean
+  images         TourImage[] // Represents the images associated with this tour
+  bookings       Booking[] // Represents the bookings made for this tour
+  members        TourMember[] // Represents the approved booking members for this tour
+}
+
+// Define the TourImage model
+model TourImage {
+  imageId  Int    @id @default(autoincrement())
+  tour     Tour   @relation(fields: [tourId], references: [tourId])
+  tourId   Int
+  imageUrl String
+}
+
+// Define the TourMember model
+model TourMember {
+  memberId              Int           @id @default(autoincrement())
+  tour                  Tour          @relation(fields: [tourId], references: [tourId])
+  tourId                Int
+  bookingMember         BookingMember @relation(fields: [bookingMemberMemberId], references: [memberId]) // Represents the booking member associated with this tour
+  bookingMemberMemberId Int
+}
