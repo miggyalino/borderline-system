@@ -42,7 +42,7 @@ model Booking {
   travelEndDate DateTime?
   // For admin
   generatedQuotation Boolean @default(false)
-  status       String @default("pending")
+  status       String @default("Pending")
 }
 
 model Service {
@@ -81,13 +81,36 @@ model BookingMemberRequirements {
 model Tour {
   tourId          Int          @id @default(autoincrement())
   tourName        String
-  tourDates       String       // You can use a specific type for dates based on your needs (e.g., DateTime)
-  tourInclusions  String
-  tourExclusions  String
+  tourStartDate   DateTime
+  tourEndDate     DateTime      // You can use a specific type for dates based on your needs (e.g., DateTime)
   tourContinent   String       // Assuming a tour can belong to only one continent; adjust as needed
   isFeatured      Boolean
+  countries     Country[]
+  inclusions TourInclusions[]
+  exclusions TourExclusions[]
   tourDays        TourDay[]    
   tourImages      TourImages[]
+}
+
+model Country {
+  countryId       Int          @id @default(autoincrement())
+  tour            Tour         @relation(fields: [tourId], references: [tourId])
+  tourId          Int
+  countryName     String
+}
+
+model TourInclusions {
+  tourInclusionId Int          @id @default(autoincrement())
+  tour            Tour         @relation(fields: [tourId], references: [tourId])
+  tourId          Int
+  inclusion       String
+}
+
+model TourExclusions {
+  tourExclusionId Int          @id @default(autoincrement())
+  tour            Tour         @relation(fields: [tourId], references: [tourId])
+  tourId          Int
+  exclusion       String
 }
 
 model TourDay {
