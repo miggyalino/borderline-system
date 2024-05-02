@@ -1,0 +1,226 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  userId String [pk]
+  password String [not null]
+  bookings Booking [not null]
+}
+
+Table Booking {
+  bookingId String [pk]
+  user User [not null]
+  userId String [not null]
+  service Service [not null]
+  serviceId String [not null]
+  bookingDate DateTime [default: `now()`, not null]
+  contactPersonName String [not null]
+  contactPersonNumber String [not null]
+  contactPersonEmail String [not null]
+  specialRequests String
+  bookingMember BookingMember [not null]
+  type String [not null]
+  quotation Quotation
+  payment Payment
+  status String [not null, default: 'Pending']
+}
+
+Table Quotation {
+  quotationId String [pk]
+  service Service [not null]
+  serviceId String [not null]
+  description String [not null]
+  totalPrice Float [not null]
+  totalTax Float [not null]
+  totalDiscount Float [not null]
+  booking Booking
+  bookingId String [unique]
+  quotationItems QuotationItem [not null]
+  quotationInclusions QuotationInclusion [not null]
+  quoationExclusions QuotationExclusion [not null]
+}
+
+Table QuotationInclusion {
+  inclusionId Int [pk, increment]
+  quotation Quotation [not null]
+  quotationId String [not null]
+  inclusion String [not null]
+}
+
+Table QuotationExclusion {
+  exclusionId Int [pk, increment]
+  quotation Quotation [not null]
+  quotationId String [not null]
+  exclusion String [not null]
+}
+
+Table QuotationItem {
+  itemId Int [pk, increment]
+  itemName String [not null]
+  itemPrice Float [not null]
+  itemDescription String [not null]
+  quotation Quotation [not null]
+  quotationId String [not null]
+}
+
+Table Payment {
+  paymentId String [pk]
+  booking Booking [not null]
+  bookingId String [unique, not null]
+  amount Float [not null]
+  currency String [not null]
+  description String [not null]
+  status String [not null]
+}
+
+Table BookingMember {
+  memberId Int [pk, increment]
+  booking Booking [not null]
+  bookingId String [not null]
+  lastName String [not null]
+  firstName String [not null]
+  middleName String
+  contactNumber String [not null]
+  email String [not null]
+  requirement BookingMemberRequirements [not null]
+  requirementId Int [unique, not null]
+}
+
+Table BookingMemberRequirements {
+  id Int [pk, increment]
+  bookingMember BookingMember
+  validId String
+  passportBioData String
+  passportIdPicture String
+  newPassport String
+  oldPassport String
+  birthCertificate String
+  marriageCertificate String
+  bankCertificate String
+  bankStatement String
+  employementCertificate String
+  incomeTaxReturn String
+  businessPermit String
+  itinerary String
+  roundTripTicket String
+  hotelReservation String
+  prcCard String
+  bdoCard String
+  travelInsurance String
+  sssProof String
+  realEstateTitle String
+  certificateOfAbsence String
+  twoByTwoPicture String
+  invitationLetter String
+  dswdCertification String
+}
+
+Table Service {
+  serviceId String [pk]
+  name String [not null]
+  description String [not null]
+  bookings Booking [not null]
+  quotations Quotation [not null]
+}
+
+Table Tour {
+  tourId Int [pk, increment]
+  tourName String [not null]
+  tourContinent String [not null]
+  isFeatured Boolean [not null]
+  thumbnail String [not null]
+  countries Country [not null]
+  inclusions TourInclusions [not null]
+  exclusions TourExclusions [not null]
+  tourDays TourDay [not null]
+  tourImages TourImages [not null]
+  tourDates TourDates [not null]
+}
+
+Table TourDates {
+  id Int [pk, increment]
+  tour Tour [not null]
+  tourId Int [not null]
+  tourStartDate DateTime [not null]
+  tourEndDate DateTime [not null]
+  expiresAt DateTime [not null]
+}
+
+Table Country {
+  countryId Int [pk, increment]
+  tour Tour [not null]
+  tourId Int [not null]
+  countryName String [not null]
+}
+
+Table TourInclusions {
+  tourInclusionId Int [pk, increment]
+  tour Tour [not null]
+  tourId Int [not null]
+  inclusion String [not null]
+}
+
+Table TourExclusions {
+  tourExclusionId Int [pk, increment]
+  tour Tour [not null]
+  tourId Int [not null]
+  exclusion String [not null]
+}
+
+Table TourDay {
+  tourDayId Int [pk, increment]
+  tour Tour [not null]
+  tourId Int [not null]
+  dayNumber Int [not null]
+  dayDescription String [not null]
+  dayItinerary DayItinerary [not null]
+}
+
+Table TourImages {
+  tourImageId Int [pk, increment]
+  tour Tour [not null]
+  tourId Int [not null]
+  imageUrl String [not null]
+}
+
+Table DayItinerary {
+  dayItineraryId Int [pk, increment]
+  tourDay TourDay [not null]
+  tourDayId Int [not null]
+  itinerary String [not null]
+}
+
+Ref: Booking.userId > User.userId
+
+Ref: Booking.serviceId > Service.serviceId
+
+Ref: Quotation.serviceId > Service.serviceId
+
+Ref: Quotation.bookingId - Booking.bookingId
+
+Ref: QuotationInclusion.quotationId > Quotation.quotationId
+
+Ref: QuotationExclusion.quotationId > Quotation.quotationId
+
+Ref: QuotationItem.quotationId > Quotation.quotationId
+
+Ref: Payment.bookingId - Booking.bookingId
+
+Ref: BookingMember.bookingId > Booking.bookingId
+
+Ref: BookingMember.requirementId - BookingMemberRequirements.id
+
+Ref: TourDates.tourId > Tour.tourId
+
+Ref: Country.tourId > Tour.tourId
+
+Ref: TourInclusions.tourId > Tour.tourId
+
+Ref: TourExclusions.tourId > Tour.tourId
+
+Ref: TourDay.tourId > Tour.tourId
+
+Ref: TourImages.tourId > Tour.tourId
+
+Ref: DayItinerary.tourDayId > TourDay.tourDayId

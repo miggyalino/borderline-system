@@ -8,6 +8,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -21,7 +26,6 @@ model User {
   bookings  Booking[]
 }
 
-// Define the Booking model as an abstract type
 model Booking {
   bookingId      String         @id @default(uuid())
   user           User           @relation(fields: [userId], references: [userId])
@@ -33,27 +37,61 @@ model Booking {
   contactPersonNumber String
   contactPersonEmail String
   specialRequests String?
-  bookingMembers BookingMember[]
+  bookingMember  BookingMember[]
   type           String
-  quotation      String?
-  // For Tour and Customized Tour
-  destination   String?
-  travelStartDate DateTime?
-  travelEndDate DateTime?
-  // For admin
-  generatedQuotation Boolean @default(false)
-  status       String @default("Pending")
+  quotation      Quotation?
+  payment        Payment?       
+  status         String         @default("Pending")
 }
 
-model Service {
-  serviceId     String          @id @default(uuid())
-  name          String
-  description   String
-  bookings      Booking[]
+model Quotation {
+  quotationId    String         @id @default(uuid())
+  service        Service        @relation(fields: [serviceId], references: [serviceId])
+  serviceId      String
+  description    String
+  totalPrice     Float
+  totalTax       Float
+  totalDiscount  Float
+  booking        Booking?       @relation(fields: [bookingId], references: [bookingId])
+  bookingId      String?        @unique
+  quotationItems QuotationItem[]
+  quotationInclusions QuotationInclusion[]
+  quoationExclusions QuotationExclusion[]
 }
 
+model QuotationInclusion {
+  inclusionId    Int          @id @default(autoincrement())
+  quotation      Quotation    @relation(fields: [quotationId], references: [quotationId])
+  quotationId    String
+  inclusion      String
+}
 
-// Booking Member model
+model QuotationExclusion {
+  exclusionId    Int          @id @default(autoincrement())
+  quotation      Quotation    @relation(fields: [quotationId], references: [quotationId])
+  quotationId    String
+  exclusion      String
+}
+model QuotationItem {
+  itemId         Int          @id @default(autoincrement())
+  itemName       String
+  itemPrice      Float
+  itemDescription String
+  quotation      Quotation    @relation(fields: [quotationId], references: [quotationId])
+  quotationId    String
+}
+
+model Payment {
+  paymentId      String        @id @default(uuid())
+  booking        Booking       @relation(fields: [bookingId], references: [bookingId])
+  bookingId      String        @unique
+  // Fields necessary for Stripe payment
+  amount         Float
+  currency       String
+  description    String
+  status         String
+}
+
 model BookingMember {
   memberId       Int          @id @default(autoincrement())
   booking        Booking      @relation(fields: [bookingId], references: [bookingId])
@@ -63,34 +101,76 @@ model BookingMember {
   middleName     String?
   contactNumber  String
   email          String
-  BookingMemberRequirements BookingMemberRequirements[]
+  requirement    BookingMemberRequirements @relation(fields: [requirementId], references: [id])
+  requirementId  Int         @unique
 }
 
-// Include all requirements needed for all services
 model BookingMemberRequirements {
-  requirementId  Int          @id @default(autoincrement())
-  bookingMember  BookingMember @relation(fields: [memberId], references: [memberId])
-  memberId       Int
-  requirementName    String
-  requirementUrl     String
+  id             Int          @id @default(autoincrement())
+  bookingMember  BookingMember?
+  validId        String?
+  passportBioData String?
+  passportIdPicture String?
+  newPassport   String?
+  oldPassport   String?
+  birthCertificate String?
+  marriageCertificate String?
+  bankCertificate String?
+  bankStatement String?
+  employementCertificate String?
+  incomeTaxReturn String?
+  businessPermit String?
+  itinerary      String?
+  roundTripTicket String?
+  hotelReservation String?
+  prcCard        String?
+  bdoCard        String?
+  travelInsurance String?
+  sssProof       String?
+  realEstateTitle String?
+  certificateOfAbsence String?
+  twoByTwoPicture String?
+  invitationLetter String?
+  dswdCertification String?
 }
+
+
+model Service {
+  serviceId     String          @id @default(uuid())
+  name          String
+  description   String
+  bookings      Booking[]
+  quotations    Quotation[]
+}
+
+
+
 
 
 // Define the Tour model
 model Tour {
   tourId          Int          @id @default(autoincrement())
   tourName        String
-  tourStartDate   DateTime
-  tourEndDate     DateTime      // You can use a specific type for dates based on your needs (e.g., DateTime)
   tourContinent   String       // Assuming a tour can belong to only one continent; adjust as needed
   isFeatured      Boolean
   thumbnail       String  
-  countries     Country[]
-  inclusions TourInclusions[]
-  exclusions TourExclusions[]
+  countries       Country[]
+  inclusions      TourInclusions[]
+  exclusions      TourExclusions[]
   tourDays        TourDay[]    
   tourImages      TourImages[]
+  tourDates       TourDates[]
 }
+
+model TourDates {
+  id              Int          @id @default(autoincrement())
+  tour            Tour         @relation(fields: [tourId], references: [tourId])
+  tourId          Int
+  tourStartDate   DateTime
+  tourEndDate     DateTime
+  expiresAt       DateTime
+}
+
 
 model Country {
   countryId       Int          @id @default(autoincrement())
